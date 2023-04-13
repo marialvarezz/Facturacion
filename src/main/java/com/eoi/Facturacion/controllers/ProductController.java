@@ -14,7 +14,7 @@ public class ProductController {
     private ProductService productService;
     //Para acceder a los métodos
 
-    @GetMapping("/")
+    @GetMapping(value = {"/",""})
     //Model es el objeto que utiliza Spring para pasar al html los datos de la BD
     public String showProducts(Model model){
         //
