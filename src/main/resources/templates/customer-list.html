@@ -21,6 +21,7 @@
         </tr>
         </thead>
         <tbody>
+        <!--Llama al modelo del Customer Controller-->
         <tr th:each="customers : ${customers}">
           <td th:text="${customers.id}">1</td>
           <td th:text="${customers.name}">Customer 1</td>

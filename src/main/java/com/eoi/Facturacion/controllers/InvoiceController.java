@@ -22,7 +22,7 @@ public class InvoiceController {
     //Model es el objeto que utiliza Spring para pasar al html los datos de la BD
     public String showInvoices(Model model){
         //
-        model.addAttribute("invoice",invoiceService.findAll());
+        model.addAttribute("invoices",invoiceService.findAll());
         //Devuelve el HTML
         return "invoice-list";
     }
