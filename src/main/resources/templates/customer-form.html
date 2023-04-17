@@ -22,35 +22,20 @@
                     <label for="surname">Apellido:</label>
                     <input type="text" class="form-control" id="surname" th:field="*{surname}" />
                 </div>
-
                 <button type="submit" value="Save" class="btn btn-primary">Guardar</button>
                 <a href="/customer/list" class="btn btn-primary">Cancelar</a>
                 <div class="container">
-
                     <h1 class="my-4">Invoice List</h1>
-
                     <table class="table">
-
                         <thead>
-
                         <tr>
-
                             <th>ID</th>
-
                             <th>Date</th>
-
                             <th>Code</th>
-
                             <th>Actions</th>
-
                         </tr>
-
                         </thead>
-
                         <tbody>
-
-
-
                         <tr th:each="invoice : ${customer.invoiceList}">
                             <td th:text="${invoice.id}">1</td>
                             <td th:text="${invoice.date}">Invoice date</td>
@@ -61,7 +46,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <a class="btn btn-outline-success" th:href="@{/customers/{id}/invoices/new?(id=${id})}">>Add New Invoice</a>
+                            <a class="btn btn-outline-success" th:href="@{/customers/{id}/invoices/new?(id=${id})}">Add New Invoice</a>
                         </tr>
                         </tbody>
                     </table>
@@ -69,6 +54,7 @@
             </form>
         </div>
     </div>
-</div></form>
+</div>
+</form>
 </body>
 </html>

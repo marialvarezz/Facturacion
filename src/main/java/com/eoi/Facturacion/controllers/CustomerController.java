@@ -26,6 +26,7 @@ public class CustomerController {
 
     @GetMapping(value = {"/",""})
     public String showCustomers(Model model){
+        //Se le llama en el customer-list.html
         model.addAttribute("customers",customerService.findAll());
         return "customer-list";
     }
