@@ -1,6 +1,7 @@
 package com.eoi.Facturacion.services;
 import com.eoi.Facturacion.entities.Customer;
 import com.eoi.Facturacion.repositories.CustomerRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,5 +26,13 @@ public class CustomerService {
     }
     public void deleteById(Long id) {
         customerRepository.deleteById(id);
+    }
+    public Customer getCustomersById(Long id) {
+        return customerRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Invoice not found with id: " + id));
+    }
+
+    public List<Customer> getAllCustomers() {
+        return customerRepository.findAll();
     }
 }

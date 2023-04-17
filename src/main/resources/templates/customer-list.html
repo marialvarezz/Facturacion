@@ -16,13 +16,15 @@
         <tr>
           <th>Id</th>
           <th>Nombre</th>
+          <th>Apellido</th>
           <th>Acciones</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="customer : ${customers}">
+        <tr th:each="customers : ${customers}">
           <td th:text="${customers.id}">1</td>
           <td th:text="${customers.name}">Customer 1</td>
+          <td th:text="${customers.surname}">Customer 1</td>
 
           <td>
             <a th:href="@{/customers/edit/{id}(id=${customers.id})}" class="btn btn-primary">Editar</a>
@@ -31,7 +33,7 @@
         </tr>
         </tbody>
       </table>
-      <a href="/customers/new" class="btn btn-primary">Crear Customero</a>
+      <a href="/customers/new" class="btn btn-primary">Crear Cliente</a>
     </div>
   </div>
 </div>

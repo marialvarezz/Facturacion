@@ -1,6 +1,8 @@
 package com.eoi.Facturacion.controllers;
 
+import com.eoi.Facturacion.entities.Customer;
 import com.eoi.Facturacion.entities.Invoice;
+import com.eoi.Facturacion.services.CustomerService;
 import com.eoi.Facturacion.services.InvoiceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +14,8 @@ import org.springframework.web.bind.annotation.*;
 public class InvoiceController {
     @Autowired
     private InvoiceService invoiceService;
+
+    private CustomerService customerService;
     //Para acceder a los métodos
 
     @GetMapping(value = {"/",""})
@@ -33,8 +37,10 @@ public class InvoiceController {
         return "redirect:/invoices/";
     }
     @GetMapping("/edit/{id}")
-    public String showEditInvoiceForm(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("invoice", invoiceService.findById(id));
+    public String showEditInvoiceForm(@PathVariable Long id, Model model) {
+        Customer customer = customerService.getCustomersById(id);
+        model.addAttribute("customer", customer);
+        model.addAttribute("allInvoices", invoiceService.getAllInvoices());
         return "invoice-form";
     }
     @GetMapping("/delete/{id}")

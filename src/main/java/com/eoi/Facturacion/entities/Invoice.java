@@ -7,7 +7,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.Clock;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -25,11 +27,17 @@ public class Invoice {
     @JsonFormat(pattern="yyyy-MM-dd")
     private LocalDate date;
 
+    @Column(name = "invoiceCode")
+    private String invoiceCode;
+
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_customer")
-    private Customer invoiceToCustomer;
+    @JoinColumn(name = "customerId")
+    private Customer customer;
 
+
+
+    //Constructor
 
 
 }

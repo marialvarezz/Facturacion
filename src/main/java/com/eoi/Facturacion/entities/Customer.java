@@ -1,5 +1,6 @@
 package com.eoi.Facturacion.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,9 +23,13 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @Column(name = "name")
-    private String nombre;
+    private String name;
 
-    @OneToMany(mappedBy = "invoiceToCustomer")
+    @Column(name = "surname")
+    private String surname;
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "customer",fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     private List<Invoice> invoiceList = new ArrayList<>();
 
 

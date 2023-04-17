@@ -1,4 +1,5 @@
 package com.eoi.Facturacion.services;
+import com.eoi.Facturacion.entities.Customer;
 import com.eoi.Facturacion.entities.Invoice;
 import com.eoi.Facturacion.repositories.InvoiceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,5 +26,8 @@ public class InvoiceService {
     }
     public void deleteById(Long id) {
         invoiceRepository.deleteById(id);
+    }
+    public List<Invoice> getAllInvoices() {
+        return invoiceRepository.findAll();
     }
 }
