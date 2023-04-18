@@ -32,5 +32,9 @@ public class Customer {
     @OneToMany(mappedBy = "customer",fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     private List<Invoice> invoiceList = new ArrayList<>();
 
+    @JsonManagedReference
+    @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Contract> contracts;
+
 
 }
