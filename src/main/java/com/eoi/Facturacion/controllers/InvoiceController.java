@@ -9,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @Controller
 @RequestMapping("/invoices")//url
 public class InvoiceController {
@@ -37,16 +39,20 @@ public class InvoiceController {
         return "redirect:/invoices/";
     }
     @GetMapping("/edit/{id}")
-    public String showEditInvoiceForm(@PathVariable Long id, Model model) {
-        Customer customer = customerService.getCustomersById(id);
-        model.addAttribute("customer", customer);
-        model.addAttribute("allInvoices", invoiceService.getAllInvoices());
-        return "invoice-form";
+    public String showEditInvoiceForm(@PathVariable("id") Long id, Model model) {
+        Optional<Invoice> invoice = invoiceService.findById(id);
+        if(invoice.isPresent())
+        {
+            model.addAttribute("invoice", invoice.get());
+            return "customer-invoice-form";
+        }
+        return "error";
+
     }
     @GetMapping("/delete/{id}")
     public String deleteInvoice(@PathVariable("id") Long id) {
         invoiceService.deleteById(id);
-        return "redirect:/invoices/";
+        return "redirect:/customers/";
     }
 
 }

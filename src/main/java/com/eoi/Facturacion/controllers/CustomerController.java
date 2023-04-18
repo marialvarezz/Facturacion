@@ -1,7 +1,9 @@
 package com.eoi.Facturacion.controllers;
 
+import com.eoi.Facturacion.entities.Contract;
 import com.eoi.Facturacion.entities.Customer;
 import com.eoi.Facturacion.entities.Invoice;
+import com.eoi.Facturacion.services.ContractService;
 import com.eoi.Facturacion.services.CustomerService;
 import com.eoi.Facturacion.services.InvoiceService;
 import lombok.extern.log4j.Log4j2;
@@ -24,6 +26,9 @@ public class CustomerController {
     private InvoiceService invoiceService;
     //Para acceder a los métodos
 
+    @Autowired
+    private ContractService contractService;
+    //Para acceder a los métodos
     @GetMapping(value = {"/",""})
     public String showCustomers(Model model){
         //Se le llama en el customer-list.html
@@ -33,7 +38,7 @@ public class CustomerController {
     @GetMapping("/new")
     public String showNewCustomerForm(Model model) {
         model.addAttribute("customer", new Customer());
-        return "customer-form";
+        return "customer-new-form";
     }
     @PostMapping("/save")
     public String saveCustomer(@ModelAttribute("customer") Customer customer) {
@@ -58,7 +63,6 @@ public class CustomerController {
     }
 
     @GetMapping("/{id}/invoices/new")
-
     public String newInvoiceForm(@PathVariable("id") Long id, Model model) {
         Optional<Customer> customer = customerService.findById(id);
         if (customer.isPresent()) {
@@ -71,7 +75,6 @@ public class CustomerController {
         }
     }
     @PostMapping("/{id}/invoices/new")
-
     public String createInvoice(@PathVariable("id") Long id, @ModelAttribute("invoice") Invoice invoice) {
         Optional<Customer> customer = customerService.findById(id);
         if(customer.isPresent()){
@@ -82,9 +85,30 @@ public class CustomerController {
         {
             return "error";
         }
-
-
-
     }
 
+    @GetMapping("/{id}/contracts/new")
+    public String newContractForm(@PathVariable("id") Long id, Model model) {
+        Optional<Customer> customer = customerService.findById(id);
+        if (customer.isPresent()) {
+            Contract contract = new Contract();
+            contract.setCustomer(customer.get());
+            model.addAttribute("contract",contract);
+            return "customer-contract-form";
+        } else {
+            return "error-page";
+        }
+    }
+    @PostMapping("/{id}/contracts/new")
+    public String createContract(@PathVariable("id") Long id, @ModelAttribute("contract") Contract contract) {
+        Optional<Customer> customer = customerService.findById(id);
+        if(customer.isPresent()){
+            contract.setCustomer(customer.get());
+            contractService.save(contract);
+            return "redirect:/customers/edit/" + id;
+        }
+        {
+            return "error";
+        }
+    }
 }
