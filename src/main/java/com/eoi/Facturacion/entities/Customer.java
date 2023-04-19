@@ -18,9 +18,9 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Customer {
-    @Column(name = "id")
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "name")
     private String name;
@@ -29,12 +29,12 @@ public class Customer {
     private String surname;
 
     @JsonManagedReference
-    @OneToMany(mappedBy = "customer",fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "customer",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private List<Invoice> invoiceList = new ArrayList<>();
 
     @JsonManagedReference
     @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Contract> contracts;
+    private List<Contract> contracts=new ArrayList<>();
 
 
 }

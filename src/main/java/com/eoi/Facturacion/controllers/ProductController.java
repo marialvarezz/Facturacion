@@ -21,7 +21,7 @@ public class ProductController {
     @GetMapping(value = {"/",""})
     public String showProducts(Model model) {
         model.addAttribute("products", productService.findAll());
-        return "product-list";
+        return "product/product-list";
     }
 
     @GetMapping("/{id}")
@@ -31,7 +31,7 @@ public class ProductController {
         if(product.isPresent())
         {
             model.addAttribute("product", product.get());
-            return "product";
+            return "product/product";
         }
         return "error";
     }
@@ -39,7 +39,7 @@ public class ProductController {
     @GetMapping("/new")
     public String showNewProductForm(Model model) {
         model.addAttribute("product", new Product());
-        return "product-form";
+        return "product/product-form";
     }
 
     @PostMapping("/save")
@@ -53,7 +53,7 @@ public class ProductController {
         Optional<Product> product = productService.findById(id);
         if(product.isPresent()) {
             model.addAttribute("product", product.get());
-            return "product-form";
+            return "product/product-form";
         }
         return "error";
     }

@@ -33,12 +33,13 @@ public class CustomerController {
     public String showCustomers(Model model){
         //Se le llama en el customer-list.html
         model.addAttribute("customers",customerService.findAll());
-        return "customer-list";
+        return "customer/customer-list";
     }
     @GetMapping("/new")
     public String showNewCustomerForm(Model model) {
-        model.addAttribute("customer", new Customer());
-        return "customer-new-form";
+        model.addAttribute("dataObject", new Customer());
+        model.addAttribute("fragmentName","fragment-customer-form");
+        return "index";
     }
     @PostMapping("/save")
     public String saveCustomer(@ModelAttribute("customer") Customer customer) {
@@ -53,7 +54,7 @@ public class CustomerController {
         }else {
             return "error-page";
         }
-        return "customer-form";
+        return "customer/customer-form";
     }
 
     @GetMapping("/delete/{id}")
@@ -69,7 +70,7 @@ public class CustomerController {
             Invoice invoice = new Invoice();
             invoice.setCustomer(customer.get());
             model.addAttribute("invoice",invoice);
-            return "customer-invoice-form";
+            return "customer/customer-invoice-form";
         } else {
             return "error-page";
         }
@@ -94,7 +95,7 @@ public class CustomerController {
             Contract contract = new Contract();
             contract.setCustomer(customer.get());
             model.addAttribute("contract",contract);
-            return "customer-contract-form";
+            return "customer/customer-contract-form";
         } else {
             return "error-page";
         }
