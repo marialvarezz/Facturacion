@@ -29,7 +29,7 @@ public class ContractController {
     public String getAllContracts(Model model) {
         List<Contract> contracts = contractService.findAll();
         model.addAttribute("contracts", contracts);
-        return "contract-list";
+        return "contract/contract-list";
     }
 
 
@@ -41,7 +41,7 @@ public class ContractController {
         if(contract.isPresent())
         {
             model.addAttribute("contract", contract.get());
-            return "contract-form";
+            return "contract/contract-form";
         }
         return "error";
     }
@@ -53,7 +53,7 @@ public class ContractController {
     public String newContract(Model model) {
         Contract contract = new Contract();
         model.addAttribute("contract", contract);
-        return "contract-form";
+        return "contract/contract-form";
     }
 
 
@@ -74,7 +74,7 @@ public class ContractController {
         if(contract.isPresent())
         {
             model.addAttribute("contract", contract.get());
-            return "customer-contract-form";
+            return "contract/customer-contract-form";
         }
         return "error";
     }
