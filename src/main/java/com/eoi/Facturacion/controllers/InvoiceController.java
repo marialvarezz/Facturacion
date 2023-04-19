@@ -26,12 +26,12 @@ public class InvoiceController {
         //
         model.addAttribute("invoices",invoiceService.findAll());
         //Devuelve el HTML
-        return "invoice-list";
+        return "invoice/invoice-list";
     }
     @GetMapping("/new")
     public String showNewInvoiceForm(Model model) {
         model.addAttribute("invoice", new Invoice());
-        return "invoice-form";
+        return "invoice/invoice-form";
     }
     @PostMapping("/save")
     public String saveInvoice(@ModelAttribute("invoice") Invoice invoice) {
@@ -44,7 +44,7 @@ public class InvoiceController {
         if(invoice.isPresent())
         {
             model.addAttribute("invoice", invoice.get());
-            return "customer-invoice-form";
+            return "customer/customer-invoice-form";
         }
         return "error";
 
